@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import ScrollToTopIcon from "../images/icons/ScrollToTopIcon";
 
 export default function ScrollToTopButton() {
   const [isVisible, setIsVisible] = useState(false);
@@ -14,35 +15,21 @@ export default function ScrollToTopButton() {
     };
   }, []);
 
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
-
   return (
-    <>
-      {isVisible && (
-        <button
-          onClick={scrollToTop}
-          className="btn btn-primary position-fixed bottom-0 end-0 m-4 rounded-circle p-3 shadow-lg z-3"
-          aria-label="Scroll to top"
-          type="button"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="32"
-            height="32"
-            viewBox="0 0 24 24"
-          >
-            <path
-              fill="currentColor"
-              d="M6 8V6h12v2zm1.4 10.4L6 17l6-6l6 6l-1.4 1.4l-4.6-4.6z"
-            />
-          </svg>
-        </button>
-      )}
-    </>
+    <button
+      onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+      className={`btn btn-primary position-fixed bottom-0 end-0 m-4 rounded-circle p-3 shadow-lg z-3 fade ${
+        isVisible ? "show" : ""
+      }`}
+      aria-label="Scroll to top"
+      aria-hidden={!isVisible}
+      type="button"
+      style={{
+        opacity: isVisible ? 1 : 0,
+        pointerEvents: isVisible ? "auto" : "none",
+      }}
+    >
+      <ScrollToTopIcon />
+    </button>
   );
 }
